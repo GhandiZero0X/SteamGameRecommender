@@ -103,7 +103,7 @@
                     <div class="d-flex flex-column">
                         <img class="img-fluid w-75 align-self-end" src="img/home.jpeg" alt="">
                         <div class="w-50 bg-secondary p-5" style="margin-top: -25%;">
-                            <h3 class="text-uppercase text-primary mb-3">15 Games</h3>
+                            <h3 class="text-uppercase text-primary mb-3">5 Games</h3>
                             <h4 class="text-uppercase mb-0">Recommendation</h4>
                         </div>
                     </div>
@@ -141,17 +141,19 @@
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                     <div class="bg-secondary h-100 d-flex flex-column justify-content-center p-5">
                         <p class="d-inline-flex bg-dark text-primary py-1 px-4 me-auto">Algoritm</p>
-                        <h1 class="text-uppercase mb-4">Menggunakan Algoritma SVD dan Pearson Correlation</h1>
+                        <h1 class="text-uppercase mb-4">Menggunakan Algoritma Collaborative Filtering (CF)</h1>
                         <div>
                             <div class="d-flex justify-content-between py-2">
                                 <div>
-                                    <p>Singular Value Decomposition (SVD) mereduksi dimensi data dalam sistem rekomendasi dengan 
-                                        memecah matriks interaksi pengguna dan game menjadi tiga komponen utama. Algoritma ini 
-                                        memprediksi rating game yang belum dimainkan menggunakan pola laten, efektif dalam menangani 
-                                        dataset besar dan mengatasi kelangkaan data (data sparsity).</p>
-                                    <p class="mb-4">Pearson Correlation mengukur kesamaan antar pengguna berdasarkan pola rating mereka dengan 
-                                        menghitung korelasi linier terhadap rata-rata rating. Kombinasi SVD dan Pearson menghasilkan 
-                                        rekomendasi yang lebih relevan dan personal.</p>    
+                                    <p>Collaborative Filtering (CF) adalah metode sistem rekomendasi yang menggunakan data 
+                                        interaksi pengguna untuk memberikan rekomendasi item berdasarkan kesamaan preferensi. 
+                                        Metode ini bekerja dengan menganalisis pola preferensi eksplisit (rating) atau implisit 
+                                        (jam bermain) untuk menemukan pengguna dengan minat serupa. Dalam jurnal ini, algoritma 
+                                        Pearson Correlation digunakan untuk mengukur kesamaan antar pengguna, sementara Singular 
+                                        Value Decomposition (SVD)** diterapkan untuk mengatasi kelangkaan data. CF memungkinkan 
+                                        rekomendasi yang personal dan relevan, meskipun menghadapi tantangan seperti *cold start 
+                                        problem* dan *data sparsity*. Kombinasi Pearson dan SVD menghasilkan sistem rekomendasi 
+                                        yang lebih akurat dan efektif.</p>
                                 </div>
                             </div>
                             <a href="form.html" class="ms-5 me-5 mt-2 btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">Form<i class="fa fa-arrow-right ms-3"></i></a>
@@ -173,7 +175,7 @@
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <p class="d-inline-block bg-secondary text-primary py-1 px-4">Games</p>
-                <h1 class="text-uppercase">15 Games Recommendation</h1>
+                <h1 class="text-uppercase">5 Games Recommendation</h1>
             </div>
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -182,11 +184,13 @@
                             <img class="img-fluid" src="img/haircut.png" alt="">
                         </div>
                         <div class="ps-4">
-                            <h3 class="text-uppercase mb-3">Haircut</h3>
-                            <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam.</p>
-                            <span class="text-uppercase text-primary">From $15</span>
+                            <h3 class="text-uppercase mb-3">The Elder Scrolls V: Skyrim</h3>
+                            <p>Genre Role-playing (RPG), seperti yang diusung oleh The Elder Scrolls V: Skyrim, adalah 
+                                genre game di mana pemain berperan sebagai karakter dalam dunia fiksi. Pemain biasanya 
+                                menjalani cerita dengan eksplorasi dunia yang luas, melakukan misi, dan menghadapi berbagai 
+                                tantangan.</p>
+                            <span class="text-primary">Rating Simulasi: Tinggi (di atas rata-rata). Jam bermain rata-rata mencapai 100+ jam.</span>
                         </div>
-                        <a class="btn btn-square" href=""><i class="fa fa-plus text-primary"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
@@ -195,11 +199,13 @@
                             <img class="img-fluid" src="img/beard-trim.png" alt="">
                         </div>
                         <div class="ps-4">
-                            <h3 class="text-uppercase mb-3">Beard Trim</h3>
-                            <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam.</p>
-                            <span class="text-uppercase text-primary">From $15</span>
+                            <h3 class="text-uppercase mb-3">Age of Empires II HD</h3>
+                            <p>Genre Strategi, seperti yang dihadirkan oleh Age of Empires II HD, adalah genre game yang menuntut 
+                                pemain untuk berpikir taktis dan mengelola sumber daya untuk mencapai tujuan tertentu. Dalam game 
+                                ini, pemain biasanya membangun peradaban, mengelola ekonomi, melatih pasukan, dan bertempur 
+                                melawan lawan dalam waktu nyata atau berbasis giliran.</p>
+                            <span class="text-primary">Rating Simulasi: Tinggi berdasarkan rata-rata jam bermain.</span>
                         </div>
-                        <a class="btn btn-square" href=""><i class="fa fa-plus text-primary"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
@@ -208,11 +214,12 @@
                             <img class="img-fluid" src="img/mans-shave.png" alt="">
                         </div>
                         <div class="ps-4">
-                            <h3 class="text-uppercase mb-3">Mans Shave</h3>
-                            <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam.</p>
-                            <span class="text-uppercase text-primary">From $15</span>
+                            <h3 class="text-uppercase mb-3">Alien Swarm</h3>
+                            <p>Genre Action/Co-op, seperti pada Alien Swarm, adalah kategori game yang menggabungkan aksi intens 
+                                dengan kerja sama antar pemain. Dalam game ini, pemain biasanya bekerja sama dalam tim untuk 
+                                menghadapi musuh, menyelesaikan misi, dan mencapai tujuan tertentu.</p>
+                            <span class="text-primary">Jam Bermain Rata-rata: Relatif lebih rendah namun menarik untuk pemain casual.</span>
                         </div>
-                        <a class="btn btn-square" href=""><i class="fa fa-plus text-primary"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -221,11 +228,12 @@
                             <img class="img-fluid" src="img/hair-dyeing.png" alt="">
                         </div>
                         <div class="ps-4">
-                            <h3 class="text-uppercase mb-3">Hair Dyeing</h3>
-                            <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam.</p>
-                            <span class="text-uppercase text-primary">From $15</span>
+                            <h3 class="text-uppercase mb-3">AdVenture Capitalist</h3>
+                            <p>Genre Simulasi Kasual, seperti pada AdVenture Capitalist, adalah jenis game yang dirancang untuk 
+                                pengalaman bermain yang santai, dengan mekanisme sederhana dan mudah dipahami. Game ini biasanya 
+                                tidak memerlukan keterampilan khusus atau perhatian intens, sehingga cocok untuk pemain kasual.</p>
+                            <span class="text-primary">Daya Tarik: Sederhana dan sering direkomendasikan untuk pemain yang suka game idle.</span>
                         </div>
-                        <a class="btn btn-square" href=""><i class="fa fa-plus text-primary"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
@@ -234,24 +242,12 @@
                             <img class="img-fluid" src="img/mustache.png" alt="">
                         </div>
                         <div class="ps-4">
-                            <h3 class="text-uppercase mb-3">Mustache</h3>
-                            <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam.</p>
-                            <span class="text-uppercase text-primary">From $15</span>
+                            <h3 class="text-uppercase mb-3">APB Reloaded</h3>
+                            <p>Genre Multiplayer Online, seperti pada APB Reloaded, adalah kategori game yang memungkinkan banyak 
+                                pemain untuk berinteraksi secara langsung dalam lingkungan daring. Game ini biasanya menekankan 
+                                kerja sama tim atau persaingan antar pemain dalam skala besar.</p>
+                            <span class="text-primary">Popularitas: Cocok untuk pemain yang menyukai interaksi dalam tim besar.</span>
                         </div>
-                        <a class="btn btn-square" href=""><i class="fa fa-plus text-primary"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item position-relative overflow-hidden bg-secondary d-flex h-100 p-5 ps-0">
-                        <div class="bg-dark d-flex flex-shrink-0 align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                            <img class="img-fluid" src="img/stacking.png" alt="">
-                        </div>
-                        <div class="ps-4">
-                            <h3 class="text-uppercase mb-3">Stacking</h3>
-                            <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam.</p>
-                            <span class="text-uppercase text-primary">From $15</span>
-                        </div>
-                        <a class="btn btn-square" href=""><i class="fa fa-plus text-primary"></i></a>
                     </div>
                 </div>
             </div>

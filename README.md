@@ -25,3 +25,7 @@ Dataset yang digunakan berasal dari Kaggle:
 1. **Clone repository**:  
    ```bash
    git clone https://github.com/username/SteamGameRecommender.git
+
+2. **Run Code**:
+   ```bash
+   pyhton app.py

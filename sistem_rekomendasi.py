@@ -19,65 +19,50 @@ def reduce_memory(df):
 games_df = reduce_memory(pd.read_csv('games.csv'))  # Data game
 recommendations_df = reduce_memory(pd.read_csv('recommendations.csv'))  # Data rekomendasi
 
-user_counts = recommendations_df['user_id'].value_counts()
-print("list id user : ",user_counts[user_counts >= 7].index)
+# 1. Visualisasi Tren Rilis Game
+def plot_release_trend():
+    games_df['release_year'] = pd.to_datetime(games_df['release_date']).dt.year  # Mengambil tahun rilis
+    release_trend = games_df['release_year'].value_counts().sort_index()
+    plt.figure(figsize=(12, 6))
+    sns.lineplot(x=release_trend.index, y=release_trend.values, marker="o")
+    plt.title("Tren Rilis Game")
+    plt.xlabel("Tahun")
+    plt.ylabel("Jumlah Game yang Dirilis")
+    plt.grid()
+    plt.show()
 
-# Informasi dasar tentang dataset
-print("Informasi Dasar tentang Dataset Games:")
-print(games_df.info())
-print("\nInformasi Dasar tentang Dataset Recommendations:")
-print(recommendations_df.info())
+# 2. Visualisasi Distribusi Genre
+def plot_top_genres():
+    genre_counts = games_df['genres'].str.split(";").explode().value_counts().head(10)
+    plt.figure(figsize=(12, 6))
+    sns.barplot(x=genre_counts.index, y=genre_counts.values, palette="viridis")
+    plt.title("Distribusi 10 Genre Teratas")
+    plt.xlabel("Genre")
+    plt.ylabel("Jumlah")
+    plt.xticks(rotation=45)
+    plt.show()
 
-# Mengecek nilai yang hilang di dataset
-print("\nNilai yang Hilang di Dataset Games:")
-print(games_df.isnull().sum())
-print("\nNilai yang Hilang di Dataset Recommendations:")
-print(recommendations_df.isnull().sum())
+# 3. Visualisasi Distribusi Rasio Positif
+def plot_positive_ratio_distribution():
+    games_df['positive_ratings'] = games_df['positive_ratings'] / (
+        games_df['positive_ratings'] + games_df['negative_ratings'])  # Rasio positif
+    plt.figure(figsize=(12, 6))
+    sns.histplot(games_df['positive_ratio'], bins=50, kde=True, color="blue")
+    plt.title("Distribusi Rasio Positif")
+    plt.xlabel("Rasio Positif (%)")
+    plt.ylabel("Jumlah")
+    plt.grid()
+    plt.show()
 
-# Statistik dasar dari dataset
-print("\nStatistik Dataset Games:")
-print(games_df.describe())
-
-# Visualisasi menggunakan seaborn
-sns.set(style="whitegrid")
-
-# 1. Tren Rilis Game
-games_df['release_year'] = pd.to_datetime(games_df['release_date']).dt.year  # Mengambil tahun rilis
-release_trend = games_df['release_year'].value_counts().sort_index()
-plt.figure(figsize=(12, 6))
-sns.lineplot(x=release_trend.index, y=release_trend.values, marker="o")
-plt.title("Tren Rilis Game")
-plt.xlabel("Tahun")
-plt.ylabel("Jumlah Game yang Dirilis")
-plt.show()
-
-# 2. Distribusi 10 Genre Teratas
-genre_counts = games_df['genres'].str.split(";").explode().value_counts().head(10)
-plt.figure(figsize=(12, 6))
-sns.barplot(x=genre_counts.index, y=genre_counts.values, palette="viridis")
-plt.title("Distribusi 10 Genre Teratas")
-plt.xlabel("Genre")
-plt.ylabel("Jumlah")
-plt.xticks(rotation=45)
-plt.show()
-
-# 3. Distribusi Rating
-games_df['positive_ratio'] = games_df['positive_ratings'] / (
-    games_df['positive_ratings'] + games_df['negative_ratings'])  # Rasio positif
-plt.figure(figsize=(12, 6))
-sns.histplot(games_df['positive_ratio'], bins=50, kde=True, color="blue")
-plt.title("Distribusi Rasio Positif")
-plt.xlabel("Rasio Positif")
-plt.ylabel("Jumlah")
-plt.show()
-
-# 4. Analisis Harga Game
-plt.figure(figsize=(15, 6))
-sns.histplot(data=games_df[games_df['price'] < 100], x='price', bins=50, color="blue")
-plt.title('Distribusi Harga Game (< $100)')
-plt.xlabel('Harga ($)')
-plt.ylabel('Jumlah')
-plt.show()
+# 4. Visualisasi Distribusi Harga Game
+def plot_price_distribution():
+    plt.figure(figsize=(15, 6))
+    sns.histplot(data=games_df[games_df['price'] < 100], x='price', bins=50, color="blue")
+    plt.title("Distribusi Harga Game (< $100)")
+    plt.xlabel("Harga ($)")
+    plt.ylabel("Jumlah")
+    plt.grid()
+    plt.show()
 
 # Mapping setiap user dan item ke nilai numerik unik
 user_ids = recommendations_df['user_id'].astype('category').cat.codes
@@ -97,6 +82,8 @@ item_matrix = svd.components_
 
 # Fungsi untuk mendapatkan user serupa menggunakan Matrix Factorization
 def get_similar_users(user_id, user_matrix, n_neighbors=6):
+    if user_id not in unique_user_ids:
+        return []
     user_index = np.where(unique_user_ids == user_id)[0][0]  # Index user
     user_vector = user_matrix[user_index].reshape(1, -1)
     cosine_similarities = cosine_similarity(user_vector, user_matrix)
@@ -114,11 +101,23 @@ def recommend_games(user_id, n_neighbors=6):
             recommended_games.extend(game_info.to_dict(orient='records'))
     return list({game['title']: game for game in recommended_games}.values())  # Menghapus duplikat berdasarkan judul game
 
-# Contoh penggunaan
-user_id_example = 1288609  # Masukkan user_id yang valid dari dataset Anda
-recommended_games = recommend_games(user_id_example, n_neighbors=6)
+# Fungsi utama untuk digunakan di Flask
+def get_recommendations_for_user(user_id, n_neighbors=6):
+    try:
+        user_id = int(user_id)  # Pastikan user_id berupa integer
+    except ValueError:
+        return []  # Jika input tidak valid, kembalikan daftar kosong
 
-# Menampilkan hasil rekomendasi
-print(f"Game yang direkomendasikan untuk user {user_id_example} adalah:")
-for game in recommended_games:
-    print(f"{game['title']} | Rasio Positif: {game['positive_ratings']} | Genre: {game['genres']} | Harga: {game['price']}")
+    if user_id not in unique_user_ids:
+        return []  # Jika user_id tidak ditemukan, kembalikan daftar kosong
+
+    # Dapatkan rekomendasi
+    recommendations = recommend_games(user_id, n_neighbors=n_neighbors)
+    return recommendations
+
+# Contoh Visualisasi
+if __name__ == "__main__":
+    plot_release_trend()
+    plot_top_genres()
+    plot_positive_ratio_distribution()
+    plot_price_distribution()

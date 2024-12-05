@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>HairCut - Hair Salon HTML Template</title>
+    <title>GameMate - Form</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="{{ url_for('static', filename='img/Logo.png') }}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,14 +20,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -41,20 +41,20 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-secondary navbar-dark sticky-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-        <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
-            <h1 class="mb-0 text-primary text-uppercase"><i class="bi bi-controller me-3"></i>GAMEREQ</h1>
+        <a href="{{ url_for('index') }}" class="navbar-brand ms-4 ms-lg-0">
+            <h1 class="mb-0 text-primary text-uppercase"><i class="bi bi-controller me-3"></i>GameMate</h1>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link">Home</a>
-                <a href="index.html" class="nav-item nav-link">About</a>
-                <a href="index.html" class="nav-item nav-link">Algorithm</a>
-                <a href="index.html" class="nav-item nav-link">Games</a>
+                <a href="{{ url_for('index') }}" class="nav-item nav-link">Home</a>
+                <a href="{{ url_for('index') }}" class="nav-item nav-link">About</a>
+                <a href="{{ url_for('index') }}" class="nav-item nav-link">Algorithm</a>
+                <a href="{{ url_for('index') }}" class="nav-item nav-link">Games</a>
             </div>
-            <a href="form.html" class="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">Form<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="{{ url_for('form') }}" class="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">Rekomendasi<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -65,7 +65,7 @@
             <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Form Recommendation</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center text-uppercase mb-0">
-                    <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="{{ url_for('index') }}">Home</a></li>
                     <li class="breadcrumb-item text-primary active" aria-current="page">Form Recommendation</li>
                 </ol>
             </nav>
@@ -82,26 +82,24 @@
                         <p class="d-inline-block bg-dark text-primary py-1 px-4">Form Recommendation</p>
                         <h1 class="text-uppercase mb-4">Mau tau rekomendasi games favoritmu?</h1>
                         <p class="mb-4">Mari coba website kami, untuk mencari rekomendasi games favoritmu!</p>
-                        <form>
+                        <form action="/result" method="POST">
                             <div class="row g-3">
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <select class="form-control bg-transparent" id="message">
+                                        <select class="form-control bg-transparent" id="user_id" name="user_id">
                                             <option value="" disabled selected>Pilih ID User</option>
-                                            <option value="">7944743</option>
-                                            <option value="">9317990</option>
-                                            <option value="">1288609</option>
-                                            <option value="">10173413</option>
-                                            <option value="">5908856</option>
+                                            {% for user_id in recommended_user_ids %}
+                                                <option value="{{ user_id }}">{{ user_id }}</option>
+                                            {% endfor %}
                                         </select>
-                                        <label for="message">ID User</label>
+                                        <label for="user_id">ID User</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <a href="result.html" class="btn btn-primary w-100 py-3">Send Message</a>
+                                    <button type="submit" class="btn btn-primary w-100 py-3">Kirim</button>
                                 </div>
                             </div>
-                        </form>
+                        </form>                        
                     </div>
                 </div>
             </div>
@@ -114,7 +112,7 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    &copy; <a class="border-bottom" href="#">GAMEREQ</a>, All Right Reserved.
+                    &copy; <a class="border-bottom" href="#">GameMate</a>, All Right Reserved.
                 </div>
                 <div class="col-md-6 text-center text-md-end">
                     Designed By <a class="border-bottom " href="">Kelompok 1</a>
@@ -130,12 +128,12 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="{{ url_for('static', filename='lib/wow/wow.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

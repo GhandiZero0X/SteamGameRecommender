@@ -20,45 +20,49 @@ games_df = reduce_memory(pd.read_csv('games.csv'))  # Data game
 recommendations_df = reduce_memory(pd.read_csv('recommendations.csv'))  # Data rekomendasi
 
 # 1. Visualisasi Tren Rilis Game
-games_df['release_year'] = pd.to_datetime(games_df['release_date']).dt.year  # Mengambil tahun rilis
-release_trend = games_df['release_year'].value_counts().sort_index()
-plt.figure(figsize=(12, 6))
-sns.lineplot(x=release_trend.index, y=release_trend.values, marker="o")
-plt.title("Tren Rilis Game")
-plt.xlabel("Tahun")
-plt.ylabel("Jumlah Game yang Dirilis")
-plt.grid()
-plt.show()
+def plot_release_trend():
+    games_df['release_year'] = pd.to_datetime(games_df['release_date']).dt.year  # Mengambil tahun rilis
+    release_trend = games_df['release_year'].value_counts().sort_index()
+    plt.figure(figsize=(12, 6))
+    sns.lineplot(x=release_trend.index, y=release_trend.values, marker="o")
+    plt.title("Tren Rilis Game")
+    plt.xlabel("Tahun")
+    plt.ylabel("Jumlah Game yang Dirilis")
+    plt.grid()
+    plt.show()
 
-# 2. Visualisasi Distribusi Genre Game
-genre_counts = games_df['genres'].str.split(";").explode().value_counts().head(10)
-plt.figure(figsize=(12, 6))
-sns.barplot(x=genre_counts.index, y=genre_counts.values, palette="viridis")
-plt.title("Distribusi 10 Genre Teratas")
-plt.xlabel("Genre")
-plt.ylabel("Jumlah")
-plt.xticks(rotation=45)
-plt.show()
+# 2. Visualisasi Distribusi Genre
+def plot_top_genres():
+    genre_counts = games_df['genres'].str.split(";").explode().value_counts().head(10)
+    plt.figure(figsize=(12, 6))
+    sns.barplot(x=genre_counts.index, y=genre_counts.values, palette="viridis")
+    plt.title("Distribusi 10 Genre Teratas")
+    plt.xlabel("Genre")
+    plt.ylabel("Jumlah")
+    plt.xticks(rotation=45)
+    plt.show()
 
 # 3. Visualisasi Distribusi Rasio Positif
-games_df['positive_ratio'] = games_df['positive_ratings'] / (
-    games_df['positive_ratings'] + games_df['negative_ratings'])  # Rasio positif
-plt.figure(figsize=(12, 6))
-sns.histplot(games_df['positive_ratio'], bins=50, kde=True, color="blue")
-plt.title("Distribusi Rasio Positif")
-plt.xlabel("Rasio Positif (%)")
-plt.ylabel("Jumlah")
-plt.grid()
-plt.show()
+def plot_positive_ratio_distribution():
+    games_df['positive_ratings'] = games_df['positive_ratings'] / (
+        games_df['positive_ratings'] + games_df['negative_ratings'])  # Rasio positif
+    plt.figure(figsize=(12, 6))
+    sns.histplot(games_df['positive_ratio'], bins=50, kde=True, color="blue")
+    plt.title("Distribusi Rasio Positif")
+    plt.xlabel("Rasio Positif (%)")
+    plt.ylabel("Jumlah")
+    plt.grid()
+    plt.show()
 
 # 4. Visualisasi Distribusi Harga Game
-plt.figure(figsize=(15, 6))
-sns.histplot(data=games_df[games_df['price'] < 100], x='price', bins=50, color="blue")
-plt.title("Distribusi Harga Game (< $100)")
-plt.xlabel("Harga ($)")
-plt.ylabel("Jumlah")
-plt.grid()
-plt.show()
+def plot_price_distribution():
+    plt.figure(figsize=(15, 6))
+    sns.histplot(data=games_df[games_df['price'] < 100], x='price', bins=50, color="blue")
+    plt.title("Distribusi Harga Game (< $100)")
+    plt.xlabel("Harga ($)")
+    plt.ylabel("Jumlah")
+    plt.grid()
+    plt.show()
 
 # Mapping setiap user dan item ke nilai numerik unik
 user_ids = recommendations_df['user_id'].astype('category').cat.codes
@@ -110,3 +114,10 @@ def get_recommendations_for_user(user_id, n_neighbors=6):
     # Dapatkan rekomendasi
     recommendations = recommend_games(user_id, n_neighbors=n_neighbors)
     return recommendations
+
+# Contoh Visualisasi
+if __name__ == "__main__":
+    plot_release_trend()
+    plot_top_genres()
+    plot_positive_ratio_distribution()
+    plot_price_distribution()

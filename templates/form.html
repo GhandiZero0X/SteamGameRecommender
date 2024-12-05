@@ -60,13 +60,13 @@
     <!-- Navbar End -->
 
     <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Form Recommendation</h1>
+            <h1 class="display-3 text-white text-uppercase animated slideInDown">Form Recommendation</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center text-uppercase mb-0">
                     <li class="breadcrumb-item"><a class="text-white" href="{{ url_for('index') }}">Home</a></li>
-                    <li class="breadcrumb-item text-primary active" aria-current="page">Form Recommendation</li>
+                    <li class="breadcrumb-item text-primary active" aria-current="page"><a href="{{ url_for('form')}}">FORM</a></li>
                 </ol>
             </nav>
         </div>
@@ -86,7 +86,7 @@
                             <div class="row g-3">
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <select class="form-control bg-transparent" id="user_id" name="user_id">
+                                        <select class="form-control bg-transparent" id="user_id" name="user_id" onchange="enableSubmit()">
                                             <option value="" disabled selected>Pilih ID User</option>
                                             {% for user_id in recommended_user_ids %}
                                                 <option value="{{ user_id }}">{{ user_id }}</option>
@@ -96,10 +96,23 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary w-100 py-3">Kirim</button>
+                                    <button type="submit" id="submit_btn" class="btn btn-primary w-100 py-3" disabled>Kirim</button>
                                 </div>
                             </div>
-                        </form>                        
+                        </form>
+                        
+                        <script>
+                            function enableSubmit() {
+                                var userIdSelect = document.getElementById("user_id");
+                                var submitButton = document.getElementById("submit_btn");
+                                
+                                if (userIdSelect.value) {
+                                    submitButton.disabled = false; // Enable submit button if user_id is selected
+                                } else {
+                                    submitButton.disabled = true; // Keep it disabled if no user_id is selected
+                                }
+                            }
+                        </script>                                               
                     </div>
                 </div>
             </div>
@@ -112,10 +125,10 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    &copy; <a class="border-bottom" href="#">GameMate</a>, All Right Reserved.
+                    &copy; <a class="border-bottom" href="https://github.com/GhandiZero0X/SteamGameRecommender.git">GameMate</a>, All Right Reserved.
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    Designed By <a class="border-bottom " href="">Kelompok 1</a>
+                    Designed By <a class="border-bottom " href="https://github.com/GhandiZero0X/SteamGameRecommender.git">Kelompok 1</a>
                 </div>
             </div>
         </div>

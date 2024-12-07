@@ -81,32 +81,37 @@
                     <div class="bg-secondary p-5">
                         <p class="d-inline-block bg-dark text-primary py-1 px-4">Result Recommendation</p>
                         <h1 class="text-uppercase mb-4">Selamat bermain!</h1>
-                        <div class="row g-3">
+                        <div class="container">
                             <!-- Judul Global -->
-                            <div class="col-12">
-                                <center>
-                                    <h4>Games Recommendation Information</h4>
-                                </center>
+                            <div class="row">
+                                <div class="col-12">
+                                    <center>
+                                        <h4>Games Recommendation Information</h4>
+                                    </center>
+                                </div>
                             </div>
+                        
                             <!-- ID User -->
-                            <div class="col-md-12">
-                                <p><strong>ID User:</strong> {{ user_id }}</p>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <p><strong>ID User:</strong> {{ user_id }}</p>
+                                </div>
                             </div>
                             <!-- Daftar Rekomendasi -->
                             {% for game in recommendations %}
-                            <div class="col-md-12">
+                            <div class="row mt-4">
                                 <h6>Recommendation {{ loop.index }}</h6>
-                                <div class="d-flex justify-content-between">
-                                    <p><strong>Games Name:</strong> {{ game['title'] }}</p>
-                                    <p><strong>Ratio:</strong> {{ game['positive_ratings'] }}</p>
-                                    <p><strong>Genre:</strong> {{ game['genres'] }}</p>
-                                    <p><strong>Price:</strong> ${{ '%.2f' | format(game['price']) }}</p>
-                                </div>
+                                <div class="col-4"><strong>Games Name:</strong> {{ game['title'] }}</div>
+                                <div class="col-2"><strong>Ratio:</strong> {{ game['positive_ratings'] }}</div>
+                                <div class="col-4"><strong>Genre:</strong> {{ game['genres'] }}</div>
+                                <div class="col-2"><strong>Price:</strong> ${{ '%.2f' | format(game['price']) }}</div>
                             </div>
                             {% endfor %}
                             <!-- Tombol Back -->
-                            <div class="col-12">
-                                <a href="{{ url_for('form') }}" class="btn btn-primary w-100 py-3">Back</a>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <a href="{{ url_for('form') }}" class="btn btn-primary w-100 py-3">Back</a>
+                                </div>
                             </div>
                         </div>
                     </div>

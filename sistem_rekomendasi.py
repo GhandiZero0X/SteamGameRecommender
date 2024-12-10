@@ -74,9 +74,12 @@ user_game_matrix = coo_matrix((recommendations_df['is_recommended'], (user_ids, 
 # Melatih model Matrix Factorization menggunakan SVD (Singular Value Decomposition)
 svd = TruncatedSVD(n_components=50)
 user_matrix = svd.fit_transform(user_game_matrix)
+print("\nUser Matrix :", user_matrix)
 item_matrix = svd.components_
 
 # Fungsi untuk mendapatkan user serupa menggunakan Matrix Factorization
+# fungsi ini digunakan untuk Menghitung kemiripan kosinus antara pengguna target dan pengguna lain, 
+# lalu mengambil pengguna dengan kemiripan tertinggi.
 def get_similar_users(user_id, user_matrix, n_neighbors=6):
     if user_id not in unique_user_ids:
         return []

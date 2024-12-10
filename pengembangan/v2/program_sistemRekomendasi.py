@@ -87,15 +87,20 @@ item_ids = recommendations_df['app_id'].astype('category').cat.codes
 
 # Mendapatkan ID user dan game unik
 unique_user_ids = recommendations_df['user_id'].astype('category').cat.categories
+# print("\nUser ID Unik:", unique_user_ids)
 unique_item_ids = recommendations_df['app_id'].astype('category').cat.categories
+# print("\nGame ID Unik:", unique_item_ids)
 
 # Menggunakan 'is_recommended' sebagai preferensi (1 untuk direkomendasikan, 0 untuk tidak)
 user_game_matrix = coo_matrix((recommendations_df['is_recommended'], (user_ids, item_ids)))
+# print("\nUser-Item Matrix Shape:", user_game_matrix)
 
 # Melatih model Matrix Factorization menggunakan SVD (Singular Value Decomposition)
 svd = TruncatedSVD(n_components=50)
 user_matrix = svd.fit_transform(user_game_matrix)
+# print("\nUser Matrix :", user_matrix)
 item_matrix = svd.components_
+# print("\nItem Matrix :", item_matrix)
 
 # Fungsi untuk mendapatkan user serupa menggunakan Matrix Factorization
 def get_similar_users(user_id, user_matrix, n_neighbors=6):

@@ -19,13 +19,21 @@ def reduce_memory(df):
 games_df = reduce_memory(pd.read_csv('games.csv'))  # Data game
 recommendations_df = reduce_memory(pd.read_csv('recommendations.csv'))  # Data rekomendasi
 
+# Informasi dasar tentang dataset
+print("Informasi Dasar tentang Dataset Games:")
+print(games_df.info())
+print("\nInformasi Dasar tentang Dataset Recommendations:")
+print(recommendations_df.info())
 
-# cek nilai null
+# Mengecek nilai yang hilang di dataset
 print("\nNilai yang Hilang di Dataset Games:")
 print(games_df.isnull().sum())
-
 print("\nNilai yang Hilang di Dataset Recommendations:")
 print(recommendations_df.isnull().sum())
+
+# Statistik dasar dari dataset
+print("\nStatistik Dataset Games:")
+print(games_df.describe())
 
 # 1. Visualisasi Tren Rilis Game
 games_df['release_year'] = pd.to_datetime(games_df['release_date']).dt.year  # Mengambil tahun rilis

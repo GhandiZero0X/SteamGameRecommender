@@ -88,6 +88,7 @@ unique_item_ids = recommendations_df['app_id'].astype('category').cat.categories
 user_game_matrix = coo_matrix((recommendations_df['is_recommended'], (user_ids, item_ids)))
 
 # Melatih model Matrix Factorization menggunakan SVD (Singular Value Decomposition)
+# digunakan untuk mereduksi dimensi data dan menemukan representasi yang lebih ringkas dari matriks pengguna-game.
 svd = TruncatedSVD(n_components=50)
 user_matrix = svd.fit_transform(user_game_matrix)
 item_matrix = svd.components_

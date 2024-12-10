@@ -95,6 +95,7 @@ def get_similar_users(user_id, user_matrix, n_neighbors=6):
     cosine_similarities = cosine_similarity(user_vector, user_matrix)
     similar_users = cosine_similarities.argsort()[0][-n_neighbors-1:-1]  # Top N user serupa
     return [unique_user_ids[i] for i in similar_users]
+# print(get_similar_users(5216252, user_matrix, n_neighbors=6))
 
 # Fungsi untuk mendapatkan game yang direkomendasikan berdasarkan user serupa
 def recommend_games(user_id, n_neighbors=6):

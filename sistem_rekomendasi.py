@@ -19,6 +19,14 @@ def reduce_memory(df):
 games_df = reduce_memory(pd.read_csv('games.csv'))  # Data game
 recommendations_df = reduce_memory(pd.read_csv('recommendations.csv'))  # Data rekomendasi
 
+
+# cek nilai null
+print("\nNilai yang Hilang di Dataset Games:")
+print(games_df.isnull().sum())
+
+print("\nNilai yang Hilang di Dataset Recommendations:")
+print(recommendations_df.isnull().sum())
+
 # 1. Visualisasi Tren Rilis Game
 games_df['release_year'] = pd.to_datetime(games_df['release_date']).dt.year  # Mengambil tahun rilis
 release_trend = games_df['release_year'].value_counts().sort_index()
@@ -74,7 +82,6 @@ user_game_matrix = coo_matrix((recommendations_df['is_recommended'], (user_ids, 
 # Melatih model Matrix Factorization menggunakan SVD (Singular Value Decomposition)
 svd = TruncatedSVD(n_components=50)
 user_matrix = svd.fit_transform(user_game_matrix)
-print("\nUser Matrix :", user_matrix)
 item_matrix = svd.components_
 
 # Fungsi untuk mendapatkan user serupa menggunakan Matrix Factorization
